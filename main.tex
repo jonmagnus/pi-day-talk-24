@@ -1,0 +1,166 @@
+\documentclass[norsk]{beamer}
+
+\title{En verden av polynomer}
+\author{Jon-Magnus Rosenblad}
+\date{13. Mars, 2024}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Polynomer}
+    Hva er et polynom?
+    \begin{definition}
+        Et \textit{polynom} er et uttrykk på formen
+        \[
+            a_0 + a_1 x + a_2 x^2 + \dots + a_n x^n
+        \]
+        hvor $a_0, a_1, \dots, a_n$ er skalarer (varierer ikke med $x$).
+
+        Verdiene $a_0,\dots, a_n$ kalles \textit{koeffisientene} til polynomet,
+        og tar ofte verdi blant de reelle tallene $\mathbb R$,
+        men kan også være rasjonale tall $\mathbb Q$,
+        heltall $\mathbb Z$,
+        eller komplekse tall $\mathbb C$,
+        (eller noe helt annet).
+
+        Den største mulige verdien for $n$ slik at $a_n \neq 0$ kalles
+        \textit{graden} på polynomet.
+
+        Et polynom kalles \textit{monisk} om $a_n = 1$.
+
+        Symbolet $x$ kalles \textit{indeterminanten} til polynomet.
+
+        Mengden av polynomer med Reelle koeffisienter med indeterminant $x$
+        benevnes $\mathbb R[x]$.
+    \end{definition}
+\end{frame}
+
+\begin{frame}{Algebraens fundamentalteorem}
+    \begin{theorem}
+        Et polynom $p$ av grad $n$ har ikke flere enn $n$ røtter.
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{Polynomer over $\mathbb C$}
+    \begin{definition}
+        De \textit{komplekse tallene} $\mathbb C$ er mengden av
+        alle mulige røtter av polynomer med koeffisienter i
+        de reelle tallene $\mathbb R$.
+    \end{definition}
+\end{frame}
+
+\begin{frame}{Algebraens fundamentalteorem over $\mathbb C$}
+    \begin{theorem}
+        Et polynom $p$ av grad $n$ med komplekse koeffisienter kan faktoriseres
+        på formen
+        \[
+            a_n (x - x_1)\dots(x - x_n).
+        \]
+        En slik faktorisering er unik opp til permutasjon av faktorene.
+    \end{theorem}
+    \begin{corollary}
+        Et polynom $p$ av grad $n$ med reelle koeffisienter kan
+        faktoriseres på formen
+        \[
+            p = p_1\dots p_m
+        \]
+        hvor $p_1,\dots, p_m$ er polynomer av grad høyst $2$.
+    \end{corollary}
+\end{frame}
+
+\begin{frame}{Hvordan finne polynomrøtter?}
+    \begin{lemma}
+        Et polynom på formen $ax^2 + bx + c$
+        har røtter gitt ved
+        \[
+            \frac {
+                -b \pm \sqrt{b^2 - 4ac}
+            }{2a}
+        \]
+    \end{lemma}
+\end{frame}
+
+\begin{frame}{Polynomer i flere variable}
+    \begin{definition}
+        Et \textit{polynom i $0$ variabler} er en skalar $a_0$.
+
+        Et \textit{polynom i $m$ variabler $x_1,\dots,x_m$} er et uttrykk på
+        formen
+        \[
+            p_0 + p_1 x_m + p_2 x_m^2 + \dots + p_n x_m^n
+        \]
+        hvor $p_0,\dots, p_n$ er polynomer i $m - 1$ variabler
+        $x_1,\dots, x_{m - 1}$.
+    \end{definition}
+    \begin{example}
+        \begin{itemize}
+            \item $x^2 + y^2 - 9$
+            \item $x_1^2 + x_2^2 - 9$ er det samme polynomet,
+                men indeterminantene er gitt ved andre symboler.
+        \end{itemize}
+    \end{example}
+\end{frame}
+
+\begin{frame}{Graden av et polynom flere variable}
+    \begin{definition}
+        Et \textit{monom} er et polynom som kan beskrives uten addisjon,
+        dvs.\ på formen $a x_1^{r_1}\dots x_m^{r_m}$.
+
+        Summen av eksponentene $r_1 + \dots + r_m$ er \textit{graden til $p$}.
+    \end{definition}
+    Alle polynomer kan unikt skrives som en sum av monomer av forskjellig grad.
+    Graden til polynomet bestemmes av monomet av høyest grad.
+\end{frame}
+
+\begin{frame}{Implisitte kurver og parametrisering}
+    \begin{definition}
+        En \textit{implisitt kurve $C$ i planet $\mathbb R^2$}
+        er en mengde på formen
+        \[
+            C = \{ (x,y)\in \mathbb R^2 \mid p(x,y) = 0\},
+        \]
+        hvor $p$ er et polynom,
+        dvs. $C$ er mengden av løsninger til likningen $p(x,y) = 0$.
+    \end{definition}
+\end{frame}
+
+\begin{frame}{Rasjonale funksjoner}
+    Merk at ved å tillate rasjonale funksjoner for å definere en kurve
+    får vi ikke flere kurver enn om vi bare tillater polynomer.
+\end{frame}
+
+\begin{frame}{Geometri og nullpunktsmengder}
+    ``Hvordan ser nullpunktsmengden til polynomet $p(x)$ ut?''
+    er det samme som å spørre ``Hva er røttene til $p(x)$?''
+    Tilsvarende, kan vi finne
+    \begin{example}[Geometri i $1$ dimensjon]
+        Merk at om $A = \{ p(x) = 0 \}$
+        og $B = \{ q(x) = 0\}$
+        er to implisitte mengder av punkter,
+        så er $A\cup B = \{ p(x) q(x) = 0 \}$.
+    \end{example}
+    \begin{corollary}
+        Alle endelige mengder av punkter på talllinja kan
+        beskrives implisitt.
+    \end{corollary}
+    \begin{example}[Ikke geoemtriske kurver]
+        Grafen til funksjonen $f(x) = e^x$ kan ikke beskrives
+        som en implisitt kurve av polynomer.
+    \end{example}
+\end{frame}
+
+\begin{frame}{Ikkeparametriserbare kurver}
+    \begin{example}
+        Kurven $\{ y^2 = x^3 - x\}$ kan ikke parametriseres.
+    \end{example}
+    \begin{theorem}[Invers funksjonsteorem]
+        Alle implisitte kurver har en \underline{lokal}
+        parametrisering.
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{Rasjonale polynomer}
+\end{frame}
+
+\end{document}
