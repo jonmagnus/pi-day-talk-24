@@ -1,4 +1,4 @@
-\documentclass[norsk, handout]{beamer}
+\documentclass[norsk]{beamer}
 
 \usepackage[framesassubsections]{beamerprosper}
 \usepackage[backend=biber, style=alphabetic]{biblatex}
@@ -179,6 +179,7 @@
         \]
         En slik faktorisering er unik opp til permutasjon av faktorene.
     \end{theorem}
+    \pause
     \begin{corollary}
         Et polynom $p$ av grad $n$ med reelle koeffisienter kan
         faktoriseres på formen
@@ -187,6 +188,11 @@
         \]
         hvor $p_1,\dots, p_m$ er polynomer av grad høyst $2$.
     \end{corollary}
+    \pause
+    \begin{remark}
+        Vi kan ikke alltid finne alle røttene til et polynom.
+        Det beste vi kan håpe på er en faktorisering i irredusible polynomer.
+    \end{remark}
 \end{frame}
 
 \begin{frame}{Faktorisering av reelle polynomer}
@@ -346,19 +352,51 @@
     \end{proof}
 \end{frame}
 
-\begin{frame}
-    \begin{lemma}[Skjæringssetningen]
+\begin{frame}{Skjæringssetningen}
+    \begin{lemma}
         La $p(x)$ være et polynom.
         Om det finnes reelle tall $a$ og $b$ slik
         at $a < b$, $p(a) < 0$ og $p(b) > 0$,
         så finnes et tall $c$ slik at
         $a < c < b$ og $p(c) = 0$.
     \end{lemma}
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}[scale = 2, point/.style={inner sep=1pt, circle, fill=black}]
+            \draw[lightgray] (-1.1,-1.1) grid[step=.2] (1.1, 1.1);
+            \draw[->] (-1.2, 0) -- (1.2,0);
+            \draw[->] (0, -1.2) -- (0,1.2);
+            \draw[thick, domain=-1:1, samples=20, smooth] plot (\x, {(\x - 1/27)^3 - 1/9});
+            \draw (-.5, {(-0.5 - 1/27)^3 - 1/9}) node[point] (pa) {}
+                node[right] {$p(a)$};
+            \draw (.9, {(0.9 - 1/27)^3 - 1/9}) node[point] (pb) {}
+                node[right] {$p(b)$};
+            \draw ({1/27 + 1/(3^(2/3))}, 0) node[point] {}
+                node[below]{$p(c)$};
+            \draw[dashed] (pa) -- (-.5,0)
+                node[above]{$a$};
+            \draw[dashed] (pb) -- (.9,0)
+                node[below]{$b$};
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
     \begin{proof}[Bevis 2]
         Anta $p$ er et monisk odd polynom.
         Da finnes det $a < b$ slik at $p(a) < 0$ og $p(b) > 0$,
         så ved skjæringssetningen må det finnes en rot mellom $a$ og $b$.
     \end{proof}
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}
+            \draw[lightgray] (-2.1, -2.1) grid[step=.5] (2.1, 2.1);
+            \draw[->] (-2.2,0) -- (2.2, 0);
+            \draw[->] (0, -2.2) -- (0, 2.2);
+            \draw[thick, domain=-2:2, samples=20, smooth] plot (\x, {(\x^3 - \x) / 3})
+                node[right] {$\frac 1 3(x^3 - x)$};
+        \end{tikzpicture}
+    \end{figure}
 \end{frame}
 
 \section{Rasjonale røtter}
@@ -466,17 +504,17 @@
 
 \section{Polynomer i flere variable}
 
-\begin{frame}{Polynomer i flere variable}
+\begin{frame}{Polynomer i $2$ variable}
     \begin{definition}
-        Et \textit{polynom i $0$ variabler} er en skalar $a_0$.
-
-        Et \textit{polynom i $m$ variabler $x_1,\dots,x_m$} er et uttrykk på
-        formen
+        Et polynom i to variable $p(x,y)$
+        er et polynom i \'en variabel $x$ hvor koeffisientene
+        er polynomer i en annen variabel $y$
         \[
-            p_0 + p_1 x_m + p_2 x_m^2 + \dots + p_n x_m^n
+            p(x, y) = p_n(y) x^n + \dots + p_1(y) x + p_1(y).
         \]
-        hvor $p_0,\dots, p_n$ er polynomer i $m - 1$ variabler
-        $x_1,\dots, x_{m - 1}$.
+
+        Graden til polynomet er den største summen av grader
+        $i + \deg p_i$.
     \end{definition}
     \begin{example}
         \begin{itemize}
@@ -485,17 +523,6 @@
                 men indeterminantene er gitt ved andre symboler.
         \end{itemize}
     \end{example}
-\end{frame}
-
-\begin{frame}{Graden av et polynom flere variable}
-    \begin{definition}
-        Et \textit{monom} er et polynom som kan beskrives uten addisjon,
-        dvs.\ på formen $a x_1^{r_1}\dots x_m^{r_m}$.
-
-        Summen av eksponentene $r_1 + \dots + r_m$ er \textit{graden til $p$}.
-    \end{definition}
-    Alle polynomer kan unikt skrives som en sum av monomer av forskjellig grad.
-    Graden til polynomet bestemmes av monomet av høyest grad.
 \end{frame}
 
 \begin{frame}{Implisitte kurver og parametrisering}
@@ -508,48 +535,81 @@
         hvor $p$ er et polynom,
         dvs. $C$ er mengden av løsninger til likningen $p(x,y) = 0$.
     \end{definition}
+    \begin{columns}
+        \begin{column}{.4\textwidth}
+            \begin{remark}
+                En implisitt kurve er ``nullpunktsmengden'' til et polynom.
+            \end{remark}
+        \end{column}
+        \begin{column}{.6\textwidth}
+            \begin{figure}
+                \centering
+                \begin{tikzpicture}[scale=1.6]
+                    \draw[lightgray] (-1.1,-1.1) grid[step=.2] (1.1, 1.1);
+                    \draw[->] (-1.2,0) -- (1.2,0);
+                    \draw[->] (0,-1.2) -- (0,1.2);
+                    \draw[thick, domain=0:360, samples=36, smooth] plot ({cos(\x)},{sin(\x)});
+                    \draw (45:1) node[above right] {$\{x^2 + y^2 - 1 = 0\}$};
+                \end{tikzpicture}
+            \end{figure}
+        \end{column}
+    \end{columns}
 \end{frame}
 
-\begin{frame}{Rasjonale funksjoner}
-    Merk at ved å tillate rasjonale funksjoner for å definere en kurve
-    får vi ikke flere kurver enn om vi bare tillater polynomer.
+\begin{frame}{Irredusible polynomer i $2$ variable}
+    \begin{definition}
+        Et polynom $p(x,y)$ er irredusibel om det ikke kan skrives
+        som et produkt av polynomer av lavere grad.
+    \end{definition}
+    \begin{columns}
+        \begin{column}{.5\textwidth}
+            \begin{itemize}
+                \item $x^2 + y^2 - 1$ er irredusibel.
+                \item $x^2 - y^2 = (x - y)(x + y)$.
+                \pause\item $x^4 - x^2 y^2 - x^2 y + y^3 - \frac 3 4 x^2 + y^2 + \frac 1 4 y + \frac 1 4$?
+            \end{itemize}
+        \end{column}
+        \begin{column}{.5\textwidth}
+            \pause
+            \begin{figure}
+                \centering
+                \begin{tikzpicture}[scale=.8]
+                    \draw[lightgray] (-3.1, -3.1) grid[step=.5] (3.1, 3.1);
+                    \draw[->] (-3.2,0) -- (3.2,0);
+                    \draw[->] (0,-3.2) -- (0,3.2);
+                    \draw[thick, samples=20, smooth, domain=-2:2]
+                        plot (\x, {(\x)^2 - 1});
+                    \draw[thick, samples=20, smooth, domain=-3:3]
+                        plot ({sqrt((\x)^2 + 1/4)}, \x)
+                        plot ({-sqrt((\x)^2 + 1/4)}, \x);
+                \end{tikzpicture}
+            \end{figure}
+        \end{column}
+    \end{columns}
 \end{frame}
 
-\begin{frame}{Geometri og nullpunktsmengder}
-    ``Hvordan ser nullpunktsmengden til polynomet $p(x)$ ut?''
-    er det samme som å spørre ``Hva er røttene til $p(x)$?''
-    Tilsvarende, kan vi finne
-    \begin{example}[Geometri i $1$ dimensjon]
-        Merk at om $A = \{ p(x) = 0 \}$
-        og $B = \{ q(x) = 0\}$
-        er to implisitte mengder av punkter,
-        så er $A\cup B = \{ p(x) q(x) = 0 \}$.
-    \end{example}
-    \begin{corollary}
-        Alle endelige mengder av punkter på talllinja kan
-        beskrives implisitt.
-    \end{corollary}
-    \begin{example}[Ikke geoemtriske kurver]
-        Grafen til funksjonen $f(x) = e^x$ kan ikke beskrives
-        som en implisitt kurve av polynomer.
-    \end{example}
-\end{frame}
-
-\begin{frame}{Ikkeparametriserbare kurver}
-    \begin{example}
-        Kurven $\{ y^2 = x^3 - x\}$ kan ikke parametriseres.
-        Merk at $x^3 - x = (x - 1)x(x + 1) < 0$
-        når $-1 < x < 0$,
-        så det finnes ingen løsninger for $x$ og $y$ i dette intervallet,
-        altså er kurven ikke-sammenhengende!
-    \end{example}
-    \begin{theorem}[Invers funksjonsteorem]
-        Alle implisitte kurver har en \underline{lokal}
-        parametrisering.
-    \end{theorem}
-\end{frame}
-
-\begin{frame}{Rasjonale polynomer}
+\begin{frame}
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}[scale=.8]
+            \draw[lightgray] (-3.1, -3.1) grid[step=.5] (3.1, 3.1);
+            \draw[->] (-3.2,0) -- (3.2,0);
+            \draw[->] (0,-3.2) -- (0,3.2);
+            \draw[red, thick, samples=20, smooth, domain=-2:2]
+                plot (\x, {(\x)^2 - 1})
+                node[above] {$y = x^2 - 1$};
+            \draw[blue, thick, samples=20, smooth, domain=-3:3]
+                plot ({sqrt((\x)^2 + 1/4)}, \x)
+                node[below right] {$x^2 - y^2 - \frac 1 4 = 0$}
+                plot ({-sqrt((\x)^2 + 1/4)}, \x);
+        \end{tikzpicture}
+    \end{figure}
+    \pause
+    \begin{multline*}
+        x^4 - x^2 y^2 - x^2 y + y^3 - \frac 3 4 x^2 + y^2 + \frac 1 4 y + \frac 1 4
+        \\
+        = \left(x^2 - y^2 - \frac 1 4\right)(x^2 - 1 - y).
+    \end{multline*}
 \end{frame}
 
 \frame{\printbibliography}
